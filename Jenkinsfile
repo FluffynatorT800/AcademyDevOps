@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'maven-3.6.3'
+    }
     stages{
         stage('preBuild') {
             steps {
@@ -14,7 +17,7 @@ pipeline {
         stage('main' ) {
             steps {
                 sh cd /var/lib/jenkins/workspace/Scripted-Build/customerapi
-                sh mvn install
+                sh mvn clean package
             }
         }
         stage('postBuil') {
