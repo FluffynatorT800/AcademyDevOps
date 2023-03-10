@@ -13,6 +13,9 @@ pipeline {
             }
         }
         stage('Docker-Build') {
+            environment {
+                SQL_USER = credentials('SQL_USER')
+                SQL_PASS = credentials('SQL_PASS')
             steps {
                 // Stoppt und löscht alte Container
                 sh '''
@@ -34,7 +37,8 @@ pipeline {
                 // Erstellt und stratet Container
                 // Löscht alte Docker-Images
                 sh '''
-                sudo docker compose up --build -d
+                sudo docker compose build --build-arg SQL_USER='${SQL_USER}' --build-arg SQL_PASS='${SQL_PASS}' --detach --verbose
+                sudo docker compose up -d
                 echo y | sudo -S docker system prune -a
                 '''
             }
