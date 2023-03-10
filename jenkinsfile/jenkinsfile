@@ -15,7 +15,7 @@ pipeline {
         stage('Docker-Build') {
             environment {
                 SQL_USER = credentials('SQL_USER')
-                SQL_PASS = credentials('SQL_PASS')
+                
             steps {
                 // Stoppt und löscht alte Container
                 sh '''
