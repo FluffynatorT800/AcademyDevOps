@@ -5,7 +5,7 @@ pipeline {
             steps {
                 sh 'ls'
                 sh 'chmod 755 Dockerfiles'
-                sh 'cd ./Dockerfiles'
+                sh 'cd ./Dockerfiles && pwd'
                 sh 'ls'
                 sh 'docker compose down'
                 sh 'cd ..'
