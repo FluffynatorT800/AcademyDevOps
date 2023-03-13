@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SQL_PASS = "${SQL_PASSWORD}"  
+        SQL_PASS = credentials('SQL_PASSWORD')
     }
     stages{
         stage('preBuild') {
@@ -24,7 +24,7 @@ pipeline {
                 sh 'ls'
                 sh 'cd Dockerfiles'
                 sh 'cp /var/lib/jenkins/.m2/repository/de/telekom/customerapi/0.0.1-SNAPSHOT/customerapi-0.0.1-SNAPSHOT.jar Dockerfiles/customerapi.jar'
-                sh 'cd Dockerfiles && docker compose up --build -d'
+                sh "cd Dockerfiles && docker build --build-arg SQL_PASS='$SQL_PASS'"
                 sh 'docker ps' 
                 sh 'echo y | docker system prune -a'
             }
