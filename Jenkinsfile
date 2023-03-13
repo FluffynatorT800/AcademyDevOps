@@ -12,8 +12,7 @@ pipeline {
         }
         stage('main' ) {
             steps {
-                sh 'cd /var/lib/jenkins/workspace/Scripted-Build/customerapi'
-                sh 'mvn clean package'
+                sh 'cd /var/lib/jenkins/workspace/pipeline_test/customerapi && mvn clean install'
             }
         }
         stage('postBuil') {
