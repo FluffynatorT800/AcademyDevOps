@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SQL_PASS = ${SQL_PASSWORD}  
+        SQL_PASS = "${SQL_PASSWORD}"  
     }
     stages{
         stage('preBuild') {
