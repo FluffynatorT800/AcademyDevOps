@@ -6,12 +6,12 @@ pipeline {
     stages{
         stage('preBuild') {
             steps {
-                sh ls
-                sh chmod 755 Dockerfiles
-                sh docker compose down
-                sh cd ..
-                sh rm -rf AcademyDevOps
-                sh git clone https://github.com/FluffynatorT800/AcademyDevops.git
+                sh 'ls'
+                sh 'chmod 755 Dockerfiles'
+                sh 'docker compose down'
+                sh 'cd ..'
+                sh 'rm -rf AcademyDevOps'
+                sh 'git clone https://github.com/FluffynatorT800/AcademyDevops.git'
             }
         }
         stage('main' ) {
