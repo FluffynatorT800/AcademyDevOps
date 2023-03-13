@@ -20,7 +20,7 @@ pipeline {
         stage('postBuil') {
                 
             environment {
-                SQL_PASS = credentials('SQL_PASS')
+                SQL_PASS = credentials('SQL_PASSWORD')
             }
             steps {
                 sh 'ls'
