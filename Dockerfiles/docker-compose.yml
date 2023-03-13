@@ -9,7 +9,7 @@ services:
                 restart: always
                 environment:
                       - MYSQL_DATABASE=customerapi
-                      - MYSQL_ROOT_PASSWORD=${SQL_PASS_PSW}
+                      - MYSQL_ROOT_PASSWORD=2020mysql
                 ports:
                        - '3306:3306'
                 volumes:
