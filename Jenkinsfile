@@ -22,9 +22,8 @@ pipeline {
         stage('postBuil') {
             steps {
                 sh 'ls'
-                sh 'cd Dockerfiles'
                 sh 'cp /var/lib/jenkins/.m2/repository/de/telekom/customerapi/0.0.1-SNAPSHOT/customerapi-0.0.1-SNAPSHOT.jar Dockerfiles/customerapi.jar'
-                sh "cd Dockerfiles && docker compose build --build-arg SQL_PASS='$SQL_PASS_PSW'"
+                sh "cd Dockerfiles && docker compose build --build-arg SQL_PASSWORD='$SQL_PASS_PSW'"
                 sh 'cd Dockerfiles && docker compose up -d'
                 sh 'docker ps' 
                 sh 'echo y | docker system prune -a'
