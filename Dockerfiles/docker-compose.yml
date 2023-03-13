@@ -25,6 +25,8 @@ services:
                         - "db:mysql"
                 container_name: java
                 restart: always
+                environment:
+                        - SPRING_DATASOURCE_PASSWORD=${SQL_PASSTWO_PSW}
                 depends_on:
                         - db
 volumes:
