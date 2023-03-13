@@ -5,6 +5,7 @@ pipeline {
             steps {
                 sh 'ls'
                 sh 'chmod 755 Dockerfiles'
+                sh 'cd Dockerfiles'
                 sh 'docker compose down'
                 sh 'cd ..'
                 sh 'rm -rf AcademyDevOps'
