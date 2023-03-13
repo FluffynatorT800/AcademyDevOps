@@ -1,7 +1,9 @@
 pipeline {
 
     agent any
-
+    environment {
+                SQL_PASS = credentials('SQL_PASSWORD')
+    }
     stages{
         stage('preBuild') {
             steps {
@@ -18,13 +20,8 @@ pipeline {
             }
         }    
         stage('postBuil') {
-                
-            environment {
-                SQL_PASS = credentials('SQL_PASSWORD')
-            }
             steps {
                 sh 'ls'
-                sh "echo ${SQL_PASS}"
                 sh 'cd Dockerfiles'
                 sh 'cp /var/lib/jenkins/.m2/repository/de/telekom/customerapi/0.0.1-SNAPSHOT/customerapi-0.0.1-SNAPSHOT.jar Dockerfiles/customerapi.jar'
                 sh "cd Dockerfiles && docker compose build --build-arg SQL_PASS='$SQL_PASS_PSW'"
