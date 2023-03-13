@@ -1,9 +1,7 @@
 pipeline {
+
     agent any
 
-    environment {
-        SQL_PASS = credentials('SQL_PASSWORD')
-    }
     stages{
         stage('preBuild') {
             steps {
@@ -14,12 +12,16 @@ pipeline {
                 sh 'git clone https://github.com/FluffynatorT800/AcademyDevops.git'
             }
         }
-        stage('main' ) {
+        stage('main' ) {   
             steps {
                 sh 'cd customerapi && mvn clean install'
             }
-        }
+        }    
         stage('postBuil') {
+                
+            environment {
+                SQL_PASS = credentials('SQL_PASSWORD')
+            }
             steps {
                 sh 'ls'
                 sh 'cd Dockerfiles'
