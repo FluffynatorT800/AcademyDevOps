@@ -6,7 +6,7 @@ pipeline {
                 sh 'ls'
                 sh 'chmod 755 Dockerfiles'
                 sh 'cd ./Dockerfiles && docker compose down'
-                sh 'rm -rf AcademyDevOps'
+                sh 'rm -rf AcademyDevops'
                 sh 'git clone https://github.com/FluffynatorT800/AcademyDevops.git'
             }
         }
