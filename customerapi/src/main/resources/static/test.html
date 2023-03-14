@@ -6,12 +6,23 @@
 <button onclick="userAction()">
 Get all!
 </button>
-
+<p id="demo"></p>
 <script>
 function userAction() {
 fetch("http://40.115.21.0:8080/customer/")
 	.then(response => response.json())
-	.then(data => console.log(data));
+	.then(data => createList(data));
+}
+
+function createList(data) {
+    const mainUL = document.createElement('ol');
+    for (let i = 0; i < data.result.length; i++) {
+        const consumerLI = Document.createElement('li');
+        consumerLI.innerHTML = data.result[i].vorname;
+    }
+}
+function showResult() {
+    document.getElementById("demo").innerHTML = mainUL;
 }
 </script>
 </body>
