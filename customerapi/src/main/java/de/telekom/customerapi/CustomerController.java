@@ -1,19 +1,21 @@
 package de.telekom.customerapi;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
+    @Autowired
+    CustomerService customerService;
+
     private CustomerRepository customerRepository;
 
     public CustomerController(CustomerRepository kundenRepository) {
@@ -25,17 +27,13 @@ public class CustomerController {
         return customerRepository.findAll();
     }
 
-    @PostMapping("/plus")
-    public Customer createcustomer(
-        @RequestBody Customer customer
-    )
-    {
-        return customerRepository.save(customer);
-    }
-
-    @GetMapping("/customer/{id}")
-    public Optional<Customer> getNoteByID(@PathVariable(value = "Id") int Id)
-    {
-        return customerRepository.findById(Id);
-    }
+    @GetMapping("{id}")
+    public ResponseEntity<Customer> get(@PathVariable int id) {
+        try {
+            Customer customer = customerService.getCustomer(id);
+            return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+        }
+    } 
 }
