@@ -11,7 +11,7 @@ Get all!
 function userAction() {
 fetch("http://40.115.21.0:8080/customer/")
 	.then(response => response.json())
-	.then(data => console.log(data));
+	.then(data => document.getElementById("demo").innerHTML = data);
 }
 </script>
 </body>
