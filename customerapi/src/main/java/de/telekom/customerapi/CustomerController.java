@@ -34,8 +34,8 @@ public class CustomerController {
     }
 
     @GetMapping("/customer/{id}")
-    public Optional<Customer> getNoteByID(@PathVariable(value = "id") int customerId)
+    public Optional<Customer> getNoteByID(@PathVariable(value = "id") int id)
     {
-        return customerRepository.findById(customerId);
+        return customerRepository.findById(id);
     }
 }
