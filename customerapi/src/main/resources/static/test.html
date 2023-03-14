@@ -1,30 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>JavaScript - Display JSON data as list</title>
-</head>
+<html>
 <body>
-  <h1>Display JSON Data as list.</h1>
-  <button onclick="showList()">Show List</button>
-
-  <script>
-    function showList(){
-      fetch("http://40.115.21.0:8080/customer/")
-        .then(response => response.json())
-        .then(data => createList(data));
-    }
-    
-    function createList(data) {
-      const mainUL = document.createElement('ol');
-      for (let i = 0; i < data.result.length; i++) {
-        const studentLI = document.createElement('li');
-        studentLI.innerHTML = data.result[i].vorname;
-
-      }
-      // append mainUL to body
-      document.body.appendChild(mainUL);
-    }
-  </script>
+<h1>Primtiv Frontend</h1>
+<p>get them all test</p>
+<button onclick="userAction()">
+Get all!
+</button>
+<p id ="demo"></p>
+<script>
+function userAction() {
+fetch("http://40.115.21.0:8080/customer/")
+	.then(response => response.json())
+	.then(data => console.log(data));
+}
+</script>
 </body>
-</html>
+</html> 
