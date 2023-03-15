@@ -8,7 +8,7 @@
     }
     .column {
         float: left;
-        width: 50%;
+        width: 25%;
         padding: 10px;
     }
     .row:after {
@@ -37,6 +37,18 @@
             <button type="submit">Add to Database</button>
             </form>
     </div>
+    <div class="column">
+        <h2>
+            Delete entry
+        </h2>
+        <p>
+            Choose the id number of the entry you want to delete:
+        </p>
+            <input type="number" id="id" value="">
+            <button onclick="deleteIt()">
+                Delete
+            </button>
+    </div>
 
   <script>
     function myFunction() {
@@ -64,7 +76,17 @@
           },
           body: JSON.stringify(data)  
         })
+        vorname.value = "";
+        nachname.value = "";    
     })
+
+    function deleteIt(id) {
+        const id = document.getElementById(id).value
+        fetch("http://40.115.21.0:8080/customer/" + id,
+        {
+            method: 'Delete'
+        })
+    }
 
   </script>
 </body>
