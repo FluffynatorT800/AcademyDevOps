@@ -9,9 +9,9 @@ Get all!
 <p id ="demo"></p>
 <script>
 function userAction() {
-fetch("http://40.115.21.0:8080/customer/")
+	fetch("http://40.115.21.0:8080/customer/")
 	.then(response => response.json())
-	.then(data => data);
+	.then(data => cb(data));
 	let col = [];
 	for (let i = 0; i < data.length; i++) {
 		for (let key in data[i]) {
