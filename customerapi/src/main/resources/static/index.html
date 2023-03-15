@@ -28,6 +28,22 @@
         getData("http://40.115.21.0:8080/customer/", (data) => document.getElementById("json").innerHTML = JSON.stringify(data, undefined, 2));     
     }
 
+    const formADD = document.querySelector('.form');
+
+    formADD.addEventListener('submit', event => {
+        event.preventDefault();
+        const formData = new FormData(formADD);
+        const data = new URLSearchParams(formData);
+
+        fetch("http://40.115.21.0:8080/customer/id", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: data  
+        })
+    })
+
   </script>
   <pre id="json"></pre>
 </body>
