@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body onload="myFunction()">
+  <script>
+    function myFunction() {
+      var data = {
+      fetch("http://40.115.21.0:8080/customer/")
+            }      
+
+      document.getElementById("json").innerHTML = JSON.stringify(data, undefined, 2);
+    }
+
+  </script>
+  <pre id="json"></pre>
+</body>
+
+</html>
