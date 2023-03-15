@@ -18,7 +18,7 @@ function appendData(data) {
 	var demo = document.getElementById("demo");
 	for (let i = 0; i< data.length; i++) {
 		var div = document.createElement("div");
-		div.inerHtml= 'Vorname: ' + data[i].vorname + ' Nachname: ' + data[i].nachname;
+		div.innerHtml= 'Vorname: ' + data[i].vorname + ' Nachname: ' + data[i].nachname;
 		demo.appendChild(div);
 	}
 }
