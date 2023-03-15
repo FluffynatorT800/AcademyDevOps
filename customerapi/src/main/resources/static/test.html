@@ -1,20 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSON Test</title>
+</head>
 <body>
-<h1>Primtiv Frontend</h1>
-<p>get them all test</p>
-<button onclick="userAction()">
-Get all!
-</button>
-<div id ="demo"></div>
-<script>
-function userAction(url, cb) {
-	fetch(url)
-	.then(response => response.json())
-	.then(data => cb(data));
-}
-
-userAction("http://40.115.21.0:8080/customer/", (data => console.log( {data})))
-</script>
+    <div id="myData"></div>
+    <script>
+        fetch('40.115.21.o:8080/customer')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData");
+            for (var i = 0; i < data.length; i++) {
+                var div = document.createElement("div");
+                div.innerHTML = 'Vorname: ' + data[i].vorname + ' Nachname ' + data[i].nachname;
+                mainContainer.appendChild(div);
+            }
+        }
+    </script>
 </body>
-</html> 
+</html
