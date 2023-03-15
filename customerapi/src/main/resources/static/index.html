@@ -80,9 +80,9 @@
         nachname.value = "";    
     })
 
-    function deleteIt(id) {
-        const id = document.getElementById(id).value
-        fetch("http://40.115.21.0:8080/customer/" + id,
+    function deleteIt() {
+        const x = document.getElementById(id).value
+        fetch("http://40.115.21.0:8080/customer/" + x,
         {
             method: 'Delete'
         })
