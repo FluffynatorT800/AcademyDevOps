@@ -45,7 +45,7 @@
             Choose the id number of the entry you want to delete:
         </p>
             <input type="number" id="id" value="">
-            <button onclick="deleteIt().then(myFunction)">
+            <button onclick="deleteIt()">
                 Delete
             </button>
     </div>
@@ -78,13 +78,15 @@
         }) 
     })
 
-    function deleteIt() {
+    function deleteIt(callback) {
         const x = document.getElementById("id").value
         fetch("http://40.115.21.0:8080/customer/" + x,
         {
             method: 'Delete'
         })
+        callback();
     }
+    deleteIt(myFunction)
 
   </script>
 </body>
