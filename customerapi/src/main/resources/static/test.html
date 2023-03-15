@@ -7,8 +7,14 @@
     <title>JSON Test</title>
 </head>
 <body>
+<h1>Primtiv Frontend</h1>
+<p>get them all test</p>
+<button onclick="userAction()">
+Get all!
+</button>
     <div id="myData"></div>
     <script>
+	function userAction() {	
         fetch("http://40.115.21.0:8080/customer/")
             .then(function (response) {
                 return response.json();
@@ -27,6 +33,7 @@
                 mainContainer.appendChild(div);
             }
         }
+	}	
     </script>
 </body>
 </html
