@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html>
+<style>
+    .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+    }
+</style>
 <body>
 <h1>Database Customer primtiv interface</h1>
+<div class="column">
 <button onclick="myFunction()" >
     Display all entries
 </button>    
+<pre id="json"></pre>
+</div>
+<div class="column">
 <h2>
     Add new entry
 </h2>
 <form class="form">
-    <input name="Vorname" type="text" placeholder="Voname">
+    <input name="Vorname" type="text" placeholder="Vorname">
     <Input name="Nachname" type="text" placeholder="Nachname">
 
     <button type="submit">Add to Database</button>
 </form>
-
+</div>
 
   <script>
     function myFunction() {
@@ -33,19 +44,18 @@
     formADD.addEventListener('submit', event => {
         event.preventDefault();
         const formData = new FormData(formADD);
-        const data = new URLSearchParams(formData);
-
+        const data = Object.fromEntries(formData);
         fetch("http://40.115.21.0:8080/customer/id", {
           method: 'POST',
           headers: {
+            'Accept' : 'application/json',
             'Content-Type': 'application/json'
           },
-          body: data  
+          body: JSON.stringify(data)  
         })
     })
 
   </script>
-  <pre id="json"></pre>
 </body>
 
 </html>
