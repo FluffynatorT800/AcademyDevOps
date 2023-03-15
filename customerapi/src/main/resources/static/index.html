@@ -78,14 +78,14 @@
         }) 
     })
 
-    deleteIt(myFunction)
     function deleteIt(callback) {
         const x = document.getElementById("id").value
         fetch("http://40.115.21.0:8080/customer/" + x,
         {
             method: 'Delete'
         })
-        callback();
+        .then((response) => myFunction)
+
     }
 
   </script>
