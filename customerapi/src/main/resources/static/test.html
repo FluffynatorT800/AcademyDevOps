@@ -30,10 +30,10 @@ Get all!
             for (var i = 0; i < data.length; i++) {
                 var div = document.createElement("div");
                 div.innerHTML = 'Vorname: ' + data[i].vorname + ' Nachname ' + data[i].nachname;
-                mainContainer.replaceWith(div);
+                mainContainer.replaceChild(div);
             }
         }
 	}	
     </script>
 </body>
-</html
+</html>
