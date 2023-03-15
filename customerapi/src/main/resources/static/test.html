@@ -11,7 +11,14 @@ Get all!
 function userAction() {
 fetch("http://40.115.21.0:8080/customer/")
 	.then(response => response.json())
-	.then(data => document.getElementById("demo").innerHTML = JSON.stringify(data, null, 2));
+	.then(data => createList(data));
+}
+function createList(data) {
+	const mainUL = document.createElement('ol');
+	for (let i = 0; i < data.length; i++) {
+		const nameLI = document.createElement('li');
+		nameLI.innerHTML = data.result[i].vorname;
+	}
 }
 </script>
 </body>
