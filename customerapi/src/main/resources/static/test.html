@@ -8,21 +8,13 @@ Get all!
 </button>
 <div id ="demo"></div>
 <script>
-function userAction() {
-	fetch("http://40.115.21.0:8080/customer/")
+function userAction(url, cb) {
+	fetch(url)
 	.then(response => response.json())
-	.then(data => appendData(data));
-	console.log(data);	
+	.then(data => cb(data));
+}
 
-function appendData(data) {
-	var demo = document.getElementById("demo");
-	for (let i = 0; i< data.length; i++) {
-		var div = document.createElement("div");
-		div.innerHtml= 'Vorname: ' + data[i].vorname + ' Nachname: ' + data[i].nachname;
-		demo.appendChild(div);
-	}
-}
-}
+userAction("http://40.115.21.0:8080/customer/", (data => console.log( {data})))
 </script>
 </body>
 </html> 
