@@ -75,13 +75,11 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(data)  
-        })
-        vorname.value = "";
-        nachname.value = "";    
+        }) 
     })
 
     function deleteIt() {
-        const x = document.getElementById(id).value
+        const x = document.getElementById("id").value
         fetch("http://40.115.21.0:8080/customer/" + x,
         {
             method: 'Delete'
