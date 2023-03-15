@@ -1,31 +1,42 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+    * {
+        box-sizing: border-box;
+    }
     .column {
         float: left;
         width: 50%;
         padding: 10px;
     }
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+}
 </style>
+</head>
 <body>
-<h1>Database Customer primtiv interface</h1>
-<div class="column">
-<button onclick="myFunction()" >
-    Display all entries
-</button>    
-<pre id="json"></pre>
-</div>
-<div class="column">
-<h2>
-    Add new entry
-</h2>
-<form class="form">
-    <input name="Vorname" type="text" placeholder="Vorname">
-    <Input name="Nachname" type="text" placeholder="Nachname">
+<h1>Database: Customer - primitive interface</h1>
+    <div class="column">
+        <button onclick="myFunction()" >
+            Display all entries
+        </button>    
+        <pre id="json"></pre>
+    </div>
+    <div class="column">
+        <h2>
+            Add new entry
+        </h2>
+            <form class="form">
+                <input name="vorname" type="text" placeholder="Vorname">
+                <Input name="nachname" type="text" placeholder="Nachname">
 
-    <button type="submit">Add to Database</button>
-</form>
-</div>
+            <button type="submit">Add to Database</button>
+            </form>
+    </div>
 
   <script>
     function myFunction() {
