@@ -78,15 +78,18 @@
         }) 
     })
 
-    function deleteIt(callback) {
+   function deleteIt() {
         const x = document.getElementById("id").value
         fetch("http://40.115.21.0:8080/customer/" + x,
         {
             method: 'Delete'
         })
-        .then((response) => myFunction)
-
+        .then((response) => response.json())
+        .then((esponseJson) =>{
+            this.myFunction(responseJson);
+        })
     }
+
 
   </script>
 </body>
