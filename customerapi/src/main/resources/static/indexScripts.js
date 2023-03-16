@@ -18,7 +18,6 @@ formADD.addEventListener('submit', event => {
     const addCommand = fetch("http://40.115.21.0:8080/customer/id", {
       method: 'POST',
       headers: {
-        [header] : token,
         'Accept' : 'application/json',
         'Content-Type': 'application/json'
       },
