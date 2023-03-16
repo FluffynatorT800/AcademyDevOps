@@ -2,7 +2,7 @@ pipeline {
 
     agent any
     environment {
-                SQL_PASSTWO = credentials('SQL_PASSTWO'),
+                SQL_PASSTWO = credentials('SQL_PASSTWO')
                 HTML_PASS = credentials('HTML_PASS')
     }
     stages{
