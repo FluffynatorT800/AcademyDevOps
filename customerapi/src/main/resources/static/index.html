@@ -24,12 +24,19 @@
         <h3>
             All entries
         </h3>
+        <p>
+            Executes when the page is loaded
+        </p>
         <pre id="json"></pre>
     </div>
     <div class="column">
         <h2>
             Add new entry
         </h2>
+        <p>
+            Enter two names, click on the button adds them to databse <br>
+            It also reloads the all entries list
+        </p>
             <form class="form">
                 <input name="vorname" type="text" placeholder="Vorname">
                 <Input name="nachname" type="text" placeholder="Nachname">
@@ -40,7 +47,8 @@
             Delete entry
         </h2>
         <p>
-            Choose the id number of the entry you want to delete:
+            Choose the id number of the entry you want to delete <br>
+            It also reloads the all entries list
         </p>
             <input type="number" id="id" value="">
             <button onclick="deleteIt()">

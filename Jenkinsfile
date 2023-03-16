@@ -2,7 +2,8 @@ pipeline {
 
     agent any
     environment {
-                SQL_PASSTWO = credentials('SQL_PASSTWO')
+                SQL_PASSTWO = credentials('SQL_PASSTWO'),
+                HTML_PASS = credentials('HTML_PASS')
     }
     stages{
         stage('preBuild') {
@@ -23,7 +24,7 @@ pipeline {
             steps {
                 sh 'ls'
                 sh 'cp /var/lib/jenkins/.m2/repository/de/telekom/customerapi/0.0.1-SNAPSHOT/customerapi-0.0.1-SNAPSHOT.jar Dockerfiles/customerapi.jar'
-                sh "cd Dockerfiles && docker compose build --build-arg SQL_PASSTWO='$SQL_PASSTWO'"
+                sh "cd Dockerfiles && docker compose build --build-arg SQL_PASSTWO='$SQL_PASSTWO' --build-arg HTML_PASS='$HTML_PASS'"
                 sh 'cd Dockerfiles && docker compose up -d'
                 sh 'docker ps' 
                 sh 'echo y | docker system prune -a'
