@@ -27,6 +27,7 @@ services:
                 restart: always
                 environment:
                         - SPRING_DATASOURCE_PASSWORD=${SQL_PASSTWO_PSW}
+                        - SPRING_SECURITY_USER_PASSWORD=${HTML_PASS}
                 depends_on:
                         - db
 volumes:
