@@ -77,19 +77,14 @@
           body: JSON.stringify(data)  
         }) 
     })
-
-   function deleteIt() {
+   async function deleteIt() {
         const x = document.getElementById("id").value
-        fetch("http://40.115.21.0:8080/customer/" + x,
+        const y = await fetch("http://40.115.21.0:8080/customer/" + x,
         {
             method: 'Delete'
-        })
-        .then((response) => response.json())
-        .then((responseJson) =>{
-            this.myFunction();
-        })
+        });  
+        const z = myFunction();
     }
-
 
   </script>
 </body>
