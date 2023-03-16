@@ -8,8 +8,7 @@ function myFunction() {
 
     getData("http://40.115.21.0:8080/customer/", (data) => document.getElementById("json").innerHTML = JSON.stringify(data, undefined, 2));     
 }
-let headers = new Headers();
-headers.set('Authorization', 'Basic ' + btoa("admin" + ":" + "test55"));
+
 
 const formADD = document.querySelector('.form');
 
@@ -19,8 +18,6 @@ formADD.addEventListener('submit', event => {
     const data = Object.fromEntries(formData);
     const addCommand = fetch("http://40.115.21.0:8080/customer/id", {
       method: 'POST',
-      credentials: 'same-origin',
-      headers: headers,
       body: JSON.stringify(data)  
     })
     .then(function(response){
