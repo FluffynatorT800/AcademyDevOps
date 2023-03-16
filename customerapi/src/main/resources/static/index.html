@@ -68,22 +68,22 @@
         event.preventDefault();
         const formData = new FormData(formADD);
         const data = Object.fromEntries(formData);
-        fetch("http://40.115.21.0:8080/customer/id", {
+        const addCommand = fetch("http://40.115.21.0:8080/customer/id", {
           method: 'POST',
           headers: {
             'Accept' : 'application/json',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(data)  
-        }) 
+        }).then(loadList); 
     })
    async function deleteIt() {
-        const x = document.getElementById("id").value
-        const y = await fetch("http://40.115.21.0:8080/customer/" + x,
+        const docId = document.getElementById("id").value
+        const deleteCommand = await fetch("http://40.115.21.0:8080/customer/" + docId,
         {
             method: 'Delete'
         });  
-        const z = myFunction();
+        const loadList = myFunction();
     }
 
   </script>
