@@ -76,7 +76,11 @@
           },
           body: JSON.stringify(data)  
         })
-        .then(myFunction())
+        .then(function(response){
+            if(response.status === 200){
+                myFunction()
+            };
+        })
     })
 
    async function deleteIt() {
