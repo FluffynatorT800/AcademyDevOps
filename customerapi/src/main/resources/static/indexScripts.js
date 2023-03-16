@@ -1,3 +1,7 @@
+var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+var csrfToken = $("meta[name='_csrf']").attr("content");
+
 function myFunction() {
         
     function getData(url, cb) {
@@ -18,6 +22,7 @@ formADD.addEventListener('submit', event => {
     const addCommand = fetch("http://40.115.21.0:8080/customer/id", {
       method: 'POST',
       headers: {
+        [header] : token,
         'Accept' : 'application/json',
         'Content-Type': 'application/json'
       },
