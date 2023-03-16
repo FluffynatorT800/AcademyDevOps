@@ -18,6 +18,10 @@ formADD.addEventListener('submit', event => {
     const data = Object.fromEntries(formData);
     const addCommand = fetch("http://40.115.21.0:8080/customer/id", {
       method: 'POST',
+      headers: {
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(data)  
     })
     .then(function(response){
