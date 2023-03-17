@@ -13,10 +13,15 @@ public class SpringSecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests((requests) -> requests
-              .requestMatchers().permitAll()
-              .anyRequest().authenticated()
-             ) 
+        .authorizeHttpRequests((requests) -> requests
+           .requestMatchers().permitAll()
+           .anyRequest().authenticated()
+           )
+        .formLogin((form) -> form
+            .loginPage("/login")
+            .permitAll()
+           )
+       .logout((logout) -> logout.permitAll())
           .csrf()
           .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
         return http.build();
