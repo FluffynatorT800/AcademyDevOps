@@ -38,7 +38,10 @@ async function deleteIt() {
     const docId = document.getElementById("id").value
     const deleteCommand = await fetch("http://40.115.21.0:8080/customer/" + docId,
     {
-        method: 'Delete'
+        method: 'Delete',
+        headers: {
+          'X-XSRF-TOKEN': csrfToken
+        }
     });  
     const loadList = myFunction();
 }
