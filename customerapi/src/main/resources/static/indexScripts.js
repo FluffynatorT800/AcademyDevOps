@@ -1,3 +1,5 @@
+const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+
 function myFunction() {
         
     function getData(url, cb) {
@@ -20,7 +22,8 @@ formADD.addEventListener('submit', event => {
       method: 'POST',
       headers: {
         'Accept' : 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': csrfToken
       },
       body: JSON.stringify(data)  
     })
