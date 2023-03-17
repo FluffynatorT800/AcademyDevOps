@@ -18,7 +18,6 @@ public class SpringSecurityConfiguration {
            .anyRequest().authenticated()
            )
         .formLogin((form) -> form
-            .loginPage("/login")
             .permitAll()
            )
        .logout((logout) -> logout.permitAll())
