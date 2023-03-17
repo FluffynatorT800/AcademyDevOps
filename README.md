@@ -5,3 +5,5 @@ The repo contains a working Jenkinsfile and can be run as a pipline project with
 To make it more accessible there is now a static html file that can be used to view the data   ip-Adress:8080/index.html
 
 An additional dependency  <artifactId>spring-boot-starter-security</artifactId> has been added to the spring boot project allow sercure access
+
+The SpringSecurityFIle allows now to use csrf tokens
