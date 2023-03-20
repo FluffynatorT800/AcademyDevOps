@@ -6,7 +6,7 @@ pipeline {
                 HTML_PASS = credentials('HTML_PASS')
     }
     stages{
-        stage('preBuild') {
+        stage('cleanup_CloneRepo') {
             steps {
                 sh 'ls'
                 sh 'chmod 755 Dockerfiles'
@@ -15,7 +15,7 @@ pipeline {
                 sh 'git clone https://github.com/FluffynatorT800/AcademyDevops.git'
             }
         }
-        stage('main' ) {   
+        stage('maven build' ) {   
             steps {
                 sh 'cd customerapi && mvn clean install'
             }

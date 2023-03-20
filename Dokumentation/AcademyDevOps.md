@@ -20,20 +20,23 @@ JENKINS: </br>
 In this specific case it was necessary to modifie the Network Security Rules via the Azure portal </br>
 to get access to the HTTP Ports like :8080 to get access to jenkins. </br>
 Modifiying the Jenkins Port to get it to switch to 8081 to clear the port for the app </br>
-can only be achived by stopping the Jenkins service - sudo service jenkins stop - </br>
+can only be achived by stopping the Jenkins service </br> 
+-> </br>
+<-> sudo service jenkins stop  </br>
+-> </br>
 creating a system overide file - sudo systemctl edit jenkins - </br>
  and entering the new port 8081 as an environment variable.</br>
 -> </br>
- [Service] </br>
- Environment="JENKINS_PORT=8888" </br>
+<->  [Service] </br>
+<-> Environment="JENKINS_PORT=8081" </br>
 -> </br>
 After saving the file jenkins service needs to be restarted  - sudo service jenkins start - 
 ______________
 LOCAL INSTALLATION: </br>
 The isntructions on how to run the spring boot app locally </br>
 forget to mention that is necessary to install and </br>
-set up an mySQL Server locally. </br>
-As HEIDSQL is just a client to connect to a running mySQL server </br>
+set up an mySQL Server locally as HEIDSQL is just a client </br>
+ to connect to a running mySQL server </br>
 ______________
 ______________
 ______________
@@ -68,7 +71,7 @@ To make this work the variables containing the passwords are added in the jenkin
 as environment variables which are supplied to the docker compose shell command as arguments. </br>
 The docker-compose.yml file uses these variables and passes them to the environment of the springboot app.</br>
 In the app they overwrite the placeholder values given in the application.properites file. </br>
--> Securing the Frontend </br>
+- Securing the Frontend </br>
 To secure the frontend the springboot sercurity dependency was added in the pom.xml</br>
 This added a password prompt to accss the index.html page. The password is, again, stored in Jenkins.</br>
 An issue arose as the default spring boot security settings blocked the REST API on the frontend.</br>
@@ -79,6 +82,33 @@ First it requests the password and allows the user access to the full frontend a
 Second it enables the use of CSRF tokens, which allow the REST api to communicate again.</br>
 In additon to this the indexScripts.js file was modified to store the CSRF token in a variable,</br>
 which is then supplied in the header of every fetch post and delete request.</br>
+_________________
+_________________
+_________________
+KUBERNETES DEPOLOYMENT:
+
+For testpurposes a minikube version was installed on the azure VM. </br>
+-> </br>
+ <-> sudo apt install -y curl wget apt-transport-https </br>
+ <-> curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 </br>
+ <-> sudo install minikube-linux-amd64 /usr/local/bin/minikube </br>
+-> </br>
+Kubectl command line tool </br>
+-> </br>
+ <-> curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" </br>
+ <-> sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl </br>
+ <-> kubectl version --client </br>
+-> </br>
+A namespace, in this case "springboot" was created via the kubectl tool. </br>
+-> </br>
+<-> kubectl create namespace springboot </br>
+-> </br>
+For an experiment an automated tool was used to generate the needed kubernetes yml files. </br>
+
+
+
+_________________
+_________________
 _________________
  PS.</br>
 The spring boot security documentation is a bit of a mess and not that usefull.</br>
