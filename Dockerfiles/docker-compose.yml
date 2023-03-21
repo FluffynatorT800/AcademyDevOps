@@ -15,7 +15,8 @@ services:
                 volumes:
                       - db:/var/lib/mysql
                 container_name: mysql
-        java:
+        java:   
+                image:  ma5k/devops-demo:latest
                 ports:
                         - '8080:8080'
                 build:  
