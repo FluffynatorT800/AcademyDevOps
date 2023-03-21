@@ -1,139 +1,45 @@
- #Generated using the tool https://8gwifi.org/kube1.jsp
-#Total Number of Services Found 2
-
-#Generating kubernetes YAML file for the Service db.yml
-#This is Service Configuration Kube definition
----
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    generated.by: 8gwifi.org
-  name: service.name.0
-  namespace: springboot
-spec:
-  ports:
-  - name: nameme_01
-    port: 3306
-    protocol: tcp
-    targetPort: 3306
-  selector:
-    app: demo.54
-  type: NodePort
-
-#This is Pod Configuration Kube definition
----
-kind: Pod
-metadata:
-  labels:
-    app: demo.54
-  namespace: springboot
-spec:
-  containers:
-  - env:
-    - name: MYSQL_DATABASE
-      value: customerapi
-    - name: MYSQL_ROOT_PASSWORD
-      value: ${SQL_PASSTWO_PSW}
-    image: mysql:8.0.31
-    imagePullPolicy: IfNotPresent
-    name: mysql
-    ports:
-    - containerPort: 3306
-      name: portname.0
-      protocol: tcp
-    securityContext:
-      capabilities:
-        add:
-        - SYS_NICE
-    volumeMounts:
-    - mountPath: /var/lib/mysql
-      name: pvo.0
-  hostname: mysql
-  restartPolicy: Always
-  terminationGracePeriodSeconds: 0
-  volumes:
-  - name: pvo.0
-    persistentVolumeClaim:
-      claimName: claimname.0
-
-#This is PersistentVolume Kube Object with Name
-#pvo.0.yml
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  annotations:
-    generated.by: 8gwifi.org
-  name: pvo.0
-  namespace: springboot
-spec:
-  accessModes:
-  - ReadWriteOnce
-  capacity:
-    storage: 10Gi
-  hostPath:
-    path: db
-    type: Directory
-  persistentVolumeReclaimPolicy: Retain
-
-#This is PersistentVolumeClaim Kube Object with Name
-#claimname.0.yml
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  annotations:
-    generated.by: 8gwifi.org
-  name: claimname.0
-  namespace: springboot
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-  volumeName: pvo.0
-
-#Generating kubernetes YAML file for the Service java.yml
-#This is Service Configuration Kube definition
----
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    generated.by: 8gwifi.org
-  name: service.name.1
-  namespace: springboot
-spec:
-  ports:
-  - name: http
-    port: 8080
-    protocol: tcp
-    targetPort: 8080
-  selector:
-    app: demo.42
-  type: NodePort
-
-#This is Pod Configuration Kube definition
----
-kind: Pod
-metadata:
-  labels:
-    app: demo.42
-  namespace: springboot
-spec:
-  containers:
-  - env:
-    - name: SPRING_DATASOURCE_PASSWORD
-      value: ${SQL_PASSTWO_PSW}
-    - name: SPRING_SECURITY_USER_PASSWORD
-      value: ${HTML_PASS_PSW}
-    imagePullPolicy: IfNotPresent
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
     name: java
-    ports:
-    - containerPort: 8080
-      name: portname.0
-      protocol: tcp
-  restartPolicy: Always
-  terminationGracePeriodSeconds: 0
+    namespace: springboot
+    labels:
+      app: java
+spec:
+  replicas: 1
+  selector: 
+    matchLables:
+      app: java
+  template:
+    meatadata:
+      labels:
+        app: java
+      spec:
+        containers:
+          - name: java
+            image: ma5k/devops-Demo:$BUILD_NUMBER
+            imagePullPolicy: IfNotPresent
+            ports: 
+             - containerPort: 8080
+            env:
+              - name: SPRING_DATASOURCE_PASSWORD
+                value: ${SQL_PASSTWO_PSW}
+              - name: SPRING_SECURITY_USER_PASSWORD
+                value: ${HTML_PASS_PSW}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-servcie
+  namespace: springboot
+spec: 
+  selector:
+    app: java
+  type: nodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 8080
+
+            

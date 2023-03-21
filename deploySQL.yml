@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: springboot
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+    strategey:
+      type: Recreate
+    template:
+      metadata:
+        labels:
+          app: mysql
+      spec:
+        containers:
+          - image: mysql:8.0.31
+            name: mysql
+            env:
+              - name: MYSQL_DATABASE
+                value: "customerapi"
+              - name: MYSQL_ROOT_PASSWORD
+                value: ${SQL_PASSTWO_PSW}
+            ports:
+              - containerPort: 3306
+                name: mysql
+            volumeMounts:
+              - name: db
+                mountPath: /var/lib/mysql
+        volumes: 
+          - name: db
+            persistentVolumeClaim:
+              claimName: db-per-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: springboot
+spec:
+  ports:
+    - port:3306
+  selector:
+    app: mysql
+  clusterIP: None

@@ -105,9 +105,17 @@ A namespace, in this case "springboot" was created via the kubectl tool. </br>
 -> </br>
 For an experiment an automated tool was used to generate the needed kubernetes yml files.  => to be discarded</br>
 
-Changed Jenkinsfile to tag the java image with the build number
-Added DockerHub credentials to Jenkins and presented them env variable 
+Changed Jenkinsfile to tag the java image with the build number </br>
+Added DockerHub credentials to Jenkins and passed them in the jenkinsfile as env variable </br>
+Added extra stages and steps in Jenkinsfiles to login to docker hub and push the image into a specified repository. </br>
 
+Three yaml files were added on top level: </br>
+deploy.yml: containes the java app deployment and service </br>
+deploySQL.yml: contains the my SQL app and service </br>
+db-per.yml: database-persistence; declares that a persitent Volume is needed for the database </br>
+
+In the next step the Jenkinsfile is modified, so it shuts the docker container down and does not start new ones. </br>
+Also a simple kubectl command is passed to test if connection via shell commands is possible.
 _________________
 _________________
 _________________
@@ -118,5 +126,6 @@ The spring boot security documentation is a bit of a mess and not that usefull.<
 -> protected void configure(...) </br>
 Any reference material containing one of these elements is of very limited use,</br>
 as these elements are depecrated
+
 
 
