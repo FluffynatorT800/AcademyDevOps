@@ -36,12 +36,12 @@ pipeline {
         //    }
 
         //}
-        stage('kubectl command') {
+        stage('minikube command') {
             steps{ 
               //  sh 'cd Dockerfiles && docker compose up -d'
               //  sh 'docker ps' 
               //  sh 'echo y | docker system prune -a'
-                sh 'kubectl config get-contexts'
+                sh 'minikube status'
             }
         }
     }
