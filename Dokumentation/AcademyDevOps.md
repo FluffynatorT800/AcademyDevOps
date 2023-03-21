@@ -85,9 +85,9 @@ which is then supplied in the header of every fetch post and delete request.</br
 _________________
 _________________
 _________________
-KUBERNETES DEPOLOYMENT:
+KUBERNETES/MINIKUBE DEPOLOYMENT:
 
-For testpurposes a minikube version was installed on the azure VM. </br>
+For test purposes a minikube version was installed on the azure VM. </br>
 -> </br>
  <-> sudo apt install -y curl wget apt-transport-https </br>
  <-> curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 </br>
@@ -103,9 +103,10 @@ A namespace, in this case "springboot" was created via the kubectl tool. </br>
 -> </br>
 <-> kubectl create namespace springboot </br>
 -> </br>
-For an experiment an automated tool was used to generate the needed kubernetes yml files. </br>
+For an experiment an automated tool was used to generate the needed kubernetes yml files.  => to be discarded</br>
 
-
+Changed Jenkinsfile to tag the java image with the build number
+Added DockerHub credentials to Jenkins and presented them env variable 
 
 _________________
 _________________
