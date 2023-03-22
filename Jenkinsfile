@@ -45,6 +45,7 @@ pipeline {
                 sh 'whoami'
                 sh 'minikube config view'
                 sh 'kubectl config get-contexts '
+                sh 'kubectl config view'
             }
         }
     }
