@@ -41,6 +41,7 @@ pipeline {
                 sh 'cd Dockerfiles && docker compose up -d'
                 sh 'docker ps' 
                 sh 'echo y | docker system prune -a'
+                sh 'kubectl view config'
             }
         }
     }

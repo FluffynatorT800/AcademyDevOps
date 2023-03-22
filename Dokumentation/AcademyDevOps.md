@@ -103,7 +103,38 @@ A namespace, in this case "springboot" was created via the kubectl tool. </br>
 -> </br>
 <-> kubectl create namespace springboot </br>
 -> </br>
-For an experiment an automated tool was used to generate the needed kubernetes yml files.  => to be discarded</br>
+
+Exposing minikube on a Azure Virtual Machine: </br>
+To test Minikube and make it accessable via browser run the following commands to </br>
+create a test deployment on the VM </br>
+-> </br>
+<-> kubectl create deployment my-nginx --image=nginx </br>
+-> </br>
+To create a simpe nginx deployment. </br>
+-> </br>
+<-> kubectl expose deployment my-nginx --name=my-nginx-svc --type=NodePort --port=80 </br>
+-> </br>
+This should expose the deployment, port 80 is the default port for nginx </br>
+To test if the exposing worked run the following commands: </br>
+-> </br>
+<-> kubectl get service my-nginx-svc </br>
+<-> minikube ip
+-> </br>
+The first command should retrive information on the ports, something like 80:1234</br>
+The second will give the minikube internal ip adress, something like 123.456.78.9 </br>
+By running the following curl command: </br>
+-> </br>
+<-> curl http://123.456.78.9:1234 </br>
+-> </br>
+The content of an nginx default website should be deployed in the terminal, starting with "!DOCTYPE html" in the first line </br> 
+To allow access to the website via external Browser a port is necessary </br>
+-> </br>
+<-> kubectl port-forward --address 0.0.0.0 service/my-nginx-svc 8080:80 </br>
+-> </br>
+The command up to service/ is default after the service/ the name of the srvice nedds to be entered </br>
+The first port 8080 is a port that has been made available via Network security settings on the Azure VM, </br>
+the second port 80 is the service port, 80 as it is the default nginx port. </br>
+It can be neccessary to delete the deployment and service to avoid port conflicts </br>
 
 Changed Jenkinsfile to tag the java image with the build number </br>
 Added DockerHub credentials to Jenkins and passed them in the jenkinsfile as env variable </br>
@@ -115,7 +146,9 @@ deploySQL.yml: contains the my SQL app and service </br>
 db-per.yml: database-persistence; declares that a persitent Volume is needed for the database </br>
 
 In the next step the Jenkinsfile is modified, so it shuts the docker container down and does not start new ones. </br>
-Also a simple kubectl command is passed to test if connection via shell commands is possible.
+Also a simple kubectl command is passed to test if connection via shell commands is possible. </br>
+It appears there are authentitiation issues, to resolve these the Jenkins Kubectl CLI plugin is installed </br>
+
 _________________
 _________________
 _________________
