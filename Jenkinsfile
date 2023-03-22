@@ -43,6 +43,7 @@ pipeline {
                 sh 'echo y | docker system prune -a'
                 sh 'minikube profile list'
                 sh 'whoami'
+                sh 'minikube start'
                 sh 'kubectl config get-contexts '
             }
         }

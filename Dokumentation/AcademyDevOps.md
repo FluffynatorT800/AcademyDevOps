@@ -104,6 +104,8 @@ A namespace, in this case "springboot" was created via the kubectl tool. </br>
 <-> kubectl create namespace springboot </br>
 -> </br>
 
+kubernetes and Kubectl plugin was added in Jenkins, unclear if they are needed </br>
+
 Exposing minikube on a Azure Virtual Machine: </br>
 To test Minikube and make it accessable via browser run the following commands to </br>
 create a test deployment on the VM </br>
