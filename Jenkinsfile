@@ -42,10 +42,11 @@ pipeline {
                 sh 'docker ps' 
                 sh 'echo y | docker system prune -a'
                 sh 'minikube profile list'
-                sh 'whoami'
                 sh 'minikube config view'
+                sh 'kubectl congfig --certificate-authority="/home/ma5k/.minikube/ca.crt"'
                 sh 'kubectl config get-contexts '
                 sh 'kubectl config view'
+                sh 'kubectl config get-users '
             }
         }
     }
