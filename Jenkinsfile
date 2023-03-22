@@ -42,7 +42,7 @@ pipeline {
                 sh 'docker ps' 
                 sh 'echo y | docker system prune -a'
                 sh 'minikube profile list'
-                sh 'minikube kubectl get all'
+                sh 'whoami'
                 sh 'kubectl config get-contexts '
             }
         }
