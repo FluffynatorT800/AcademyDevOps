@@ -43,10 +43,10 @@ pipeline {
                 sh 'echo y | docker system prune -a'
                 sh 'minikube profile list'
                 sh 'minikube config view'
-                sh 'kubectl config set --certificate-authority="/home/ma5k/.minikube/ca.crt"'
-                sh 'kubectl config get-contexts '
-                sh 'kubectl config view'
-                sh 'kubectl config get-users '
+                sh 'kubectl --kubeconfig=/home/ma5k/kube config view'
+              //  sh 'kubectl config get-contexts '
+              //  sh 'kubectl config view'
+              //  sh 'kubectl config get-users '
             }
         }
     }
