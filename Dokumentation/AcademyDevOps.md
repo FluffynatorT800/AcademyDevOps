@@ -138,6 +138,11 @@ The first port 8080 is a port that has been made available via Network security 
 the second port 80 is the service port, 80 as it is the default nginx port. </br>
 It can be neccessary to delete the deployment and service to avoid port conflicts </br>
 
+Due to connection issues it was necessary to change the kubeconfig file, </br>
+which jenkins uses in the pipline. </br>
+In this case it was neccessary to use the kubeconfig file assigned to the user on the VM. </br>
+An absoulte awful solution, will not recommend it. </br>
+
 Changed Jenkinsfile to tag the java image with the build number </br>
 Added DockerHub credentials to Jenkins and passed them in the jenkinsfile as env variable </br>
 Added extra stages and steps in Jenkinsfiles to login to docker hub and push the image into a specified repository. </br>
@@ -147,9 +152,6 @@ deploy.yml: containes the java app deployment and service </br>
 deploySQL.yml: contains the my SQL app and service </br>
 db-per.yml: database-persistence; declares that a persitent Volume is needed for the database </br>
 
-In the next step the Jenkinsfile is modified, so it shuts the docker container down and does not start new ones. </br>
-Also a simple kubectl command is passed to test if connection via shell commands is possible. </br>
-It appears there are authentitiation issues, to resolve these the Jenkins Kubectl CLI plugin is installed </br>
 
 _________________
 _________________
@@ -161,6 +163,3 @@ The spring boot security documentation is a bit of a mess and not that usefull.<
 -> protected void configure(...) </br>
 Any reference material containing one of these elements is of very limited use,</br>
 as these elements are depecrated
-
-
-

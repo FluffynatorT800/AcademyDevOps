@@ -43,7 +43,7 @@ pipeline {
                 sh 'echo y | docker system prune -a'
                 sh 'minikube profile list'
                 sh 'minikube config view'
-                sh 'kubectl --kubeconfig=/home/ma5k/.kube/config get all'
+                sh 'minikube --kubeconfig=/home/ma5k/.kube/config start'
                 sh 'kubectl config get-contexts '
                 sh 'kubectl config view'
               //  sh 'kubectl config get-users '
