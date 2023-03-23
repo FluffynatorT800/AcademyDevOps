@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: mysql
-    strategey:
+    strategy:
       type: Recreate
     template:
       metadata:

@@ -11,7 +11,7 @@ spec:
     matchLables:
       app: java
   template:
-    meatadata:
+    metadata:
       labels:
         app: java
       spec:
@@ -35,7 +35,7 @@ metadata:
 spec: 
   selector:
     app: java
-  type: nodePort
+  type: NodePort
   ports:
     - protocol: TCP
       port: 8080
