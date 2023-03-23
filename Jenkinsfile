@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh 'ls'
                 sh 'cp /var/lib/jenkins/.m2/repository/de/telekom/customerapi/0.0.1-SNAPSHOT/customerapi-0.0.1-SNAPSHOT.jar Dockerfiles/customerapi.jar'
-                sh "cd Dockerfiles && docker build . -t ma5k/devops-demo:$BUILD_NUMBER  --build-arg HTML_PASS='$HTML_PASS' -f java-dockerfile "
+                sh "cd Dockerfiles && docker build . -t ma5k/devops-demo:$BUILD_NUMBER  --build-arg SPRING_SECURITY_USER_PASSWORD=$HTML_PASS_PSW -f java-dockerfile "
             } 
         }            
         stage('docker login & push') {
