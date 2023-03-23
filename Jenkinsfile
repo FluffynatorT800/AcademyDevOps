@@ -38,12 +38,12 @@ pipeline {
         //}
         stage('docker compose up') {
             steps{ 
-                sh 'cd Dockerfiles && docker compose up -d'
+              //  sh 'cd Dockerfiles && docker compose up -d'
                 sh 'docker ps' 
                 sh 'echo y | docker system prune -a'
                 sh 'minikube profile list'
                 sh 'minikube config view'
-                sh 'minikube --kubeconfig=/home/ma5k/.kube/config start'
+                sh 'kubectl --kubeconfig=/home/ma5k/.kube/config apply -f any_file.yml'
                 sh 'kubectl config get-contexts '
                 sh 'kubectl config view'
               //  sh 'kubectl config get-users '
