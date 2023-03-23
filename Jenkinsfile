@@ -32,7 +32,6 @@ pipeline {
             steps{
                 sh "echo $DOCK_CRED_PSW | docker login -u $DOCK_CRED_USR --password-stdin"
                 sh "docker push ma5k/devops-demo:$BUILD_NUMBER"
-                sh "docker logout"
            }
 
         }
@@ -46,7 +45,7 @@ pipeline {
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config apply -f deploy.yml -f deploySQL.yml -f db-per.yml'
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot'
                 sh 'kubectl config view'
-              //  sh 'kubectl config get-users '
+                sh "docker logout"
             }
         }
     }
