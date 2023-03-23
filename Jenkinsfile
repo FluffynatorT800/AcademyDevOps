@@ -30,7 +30,7 @@ pipeline {
         stage('docker login & push') {
             steps{
                 sh "echo $DOCK_CRED_PSW | docker login -u $DOCK_CRED_USR --password-stdin"
-                sh "docker push ma5k/devops-demo"
+                sh "docker push ma5k/devops-demo:latest"
            }
 
         }
