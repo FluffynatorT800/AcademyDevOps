@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app: java
-  spec:
+    spec:
         containers:
           - name: java
             image: ma5k/devops-Demo:$BUILD_NUMBER
