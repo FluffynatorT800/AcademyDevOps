@@ -36,7 +36,8 @@ pipeline {
         }
         stage('docker compose up') {
             steps{ 
-                //sh "kubectl --kubeconfig=/home/ma5k/.kube/config create secret generic user-pass --from-literal=user-passing='$HTML_PASS_PSW'"
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config delete secret user-pass"
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config create secret generic user-pass --from-literal=user-passing='$HTML_PASS_PSW' -n springboot"
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config apply -f deploy.yml -f deploySQL.yml -f db-per.yml'
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot'
                 sh 'kubectl config view'
