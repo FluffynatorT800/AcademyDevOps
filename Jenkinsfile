@@ -43,7 +43,7 @@ pipeline {
                 sh 'echo y | docker system prune -a'
                 sh 'minikube profile list'
                 sh 'minikube config view'
-                sh 'kubectl --kubeconfig=/home/ma5k/.kube/config apply -f any_file.yml'
+                sh 'kubectl --kubeconfig=/home/ma5k/.kube/config apply -f deploy.yml -f deploySQL.yml -f db-per.yml'
                 sh 'kubectl config get-contexts '
                 sh 'kubectl config view'
               //  sh 'kubectl config get-users '
