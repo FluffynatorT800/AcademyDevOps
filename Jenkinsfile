@@ -11,7 +11,6 @@ pipeline {
             steps {
                 sh 'ls'
                 sh 'chmod 755 Dockerfiles'
-                //sh 'cd ./Dockerfiles && docker compose down'
                 sh 'rm -rf AcademyDevops'
                 sh 'git clone https://github.com/FluffynatorT800/AcademyDevops.git'
             }
@@ -25,7 +24,7 @@ pipeline {
             steps {
                 sh 'ls'
                 sh 'cp /var/lib/jenkins/.m2/repository/de/telekom/customerapi/0.0.1-SNAPSHOT/customerapi-0.0.1-SNAPSHOT.jar Dockerfiles/customerapi.jar'
-                sh "cd Dockerfiles && docker build . -t ma5k/devops-demo:$BUILD_NUMBER  --build-arg HTML_PASS_PSW='$HTML_PASS_PSW' -f java-dockerfile "
+                sh "cd Dockerfiles && docker build . -t ma5k/devops-demo:$BUILD_NUMBER -f java-dockerfile "
             } 
         }            
         stage('docker login & push') {
@@ -37,10 +36,7 @@ pipeline {
         }
         stage('docker compose up') {
             steps{ 
-              //  sh 'cd Dockerfiles && docker compose up -d'
-                sh 'docker ps'             
-                sh 'minikube profile list'
-                sh 'minikube config view'
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config create secret generic user_pass --from-literal=user_passing='$HTML_PASS_PSW'"
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config apply -f deploy.yml -f deploySQL.yml -f db-per.yml'
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot'
                 sh 'kubectl config view'

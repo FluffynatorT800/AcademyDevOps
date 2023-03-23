@@ -17,13 +17,18 @@ spec:
     spec:
         containers:
           - name: java
-            image: ma5k/devops-demo:229
+            image: ma5k/devops-demo:latest
             imagePullPolicy: Always
             ports: 
              - containerPort: 8080
             env:
               - name: SPRING_DATASOURCE_PASSWORD
                 value: ${SQL_PASSTWO_PSW}
+              - name: SPRING_SECURITY_USER_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: user_pass
+                    key: user_passing
 ---
 apiVersion: v1
 kind: Service
