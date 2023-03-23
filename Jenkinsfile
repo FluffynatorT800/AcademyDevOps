@@ -30,13 +30,13 @@ pipeline {
         stage('docker login & push') {
             steps{
                 sh "echo $DOCK_CRED_PSW | docker login -u $DOCK_CRED_USR --password-stdin"
-                sh "docker push ma5k/devops-demo:$BUILD_NUMBER"
+                sh "docker push ma5k/devops-demo"
            }
 
         }
         stage('docker compose up') {
             steps{ 
-                sh "kubectl --kubeconfig=/home/ma5k/.kube/config delete secret user-pass"
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config delete secret user-pass -n springboot"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config create secret generic user-pass --from-literal=user-passing='$HTML_PASS_PSW' -n springboot"
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config apply -f deploy.yml -f deploySQL.yml -f db-per.yml'
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot'
