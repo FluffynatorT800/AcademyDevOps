@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app: java
-      spec:
+  spec:
         containers:
           - name: java
             image: ma5k/devops-Demo:$BUILD_NUMBER
@@ -40,4 +40,4 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-      nodePort: 8080
+      nodePort: 32520
