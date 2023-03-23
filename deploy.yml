@@ -27,8 +27,8 @@ spec:
               - name: SPRING_SECURITY_USER_PASSWORD
                 valueFrom:
                   secretKeyRef:
-                    name: user_pass
-                    key: user_passing
+                    name: user-pass
+                    key: user-passing
 ---
 apiVersion: v1
 kind: Service
