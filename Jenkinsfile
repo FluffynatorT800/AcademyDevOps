@@ -38,14 +38,14 @@ pipeline {
         stage('docker compose up') {
             steps{ 
               //  sh 'cd Dockerfiles && docker compose up -d'
-                sh 'docker ps' 
-                sh 'echo y | docker system prune -a'
+                sh 'docker ps'             
                 sh 'minikube profile list'
                 sh 'minikube config view'
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config apply -f deploy.yml -f deploySQL.yml -f db-per.yml'
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot'
                 sh 'kubectl config view'
                 sh "docker logout"
+                sh 'echo y | docker system prune -a'
             }
         }
     }
