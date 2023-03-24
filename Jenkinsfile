@@ -38,8 +38,8 @@ pipeline {
         }
         stage('kubectl deploy') {
             steps{ 
-                sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
-                    delete secret user-pass -n springboot"
+                //sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                //    delete secret user-pass -n springboot"
                 //sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                 //    delete secret sql-pass -n springboot"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
