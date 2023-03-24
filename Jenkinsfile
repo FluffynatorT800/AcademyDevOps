@@ -40,8 +40,8 @@ pipeline {
             steps{ 
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                     delete secret user-pass -n springboot"
-                //sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
-                //    delete secret sql-pass -n springboot"
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                    delete secret sql-pass -n springboot"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                     create secret generic user-pass \
                     --from-literal=user-passing='$HTML_PASS_PSW' -n springboot"
