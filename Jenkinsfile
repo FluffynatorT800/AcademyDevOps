@@ -50,13 +50,13 @@ pipeline {
                     --from-literal=sql-passing='$SQL_PASSTWO_PSW' -n springboot"    
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                     apply -f deploy.yml -f deploySQL.yml -f db-per.yml"
-                sh "kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot"
-                sh "echo y | docker system prune -a"
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot"            
             }
         }
     }
     post {
         cleanup {
+            sh "echo y | docker system prune -a"
             sh "docker logout"
         }
     }
