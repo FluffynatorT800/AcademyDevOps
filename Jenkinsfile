@@ -49,7 +49,7 @@ pipeline {
                     create secret generic sql-pass \
                     --from-literal=sql-passing='$SQL_PASSTWO_PSW' -n springboot"    
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
-                    apply -f deploy.yml -f deploySQL.yml -f db-per.yml"
+                    apply -f db-per.yml -f deploy.yml -f deploySQL.yml"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot"            
             }
         }
