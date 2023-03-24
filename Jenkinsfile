@@ -38,8 +38,8 @@ pipeline {
         }
         stage('kubectl deploy') {
             steps{ 
-                //sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
-                //    delete secret user-pass -n springboot"
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                    delete secret user-pass -n springboot"
                 //sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                 //    delete secret sql-pass -n springboot"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
@@ -47,7 +47,7 @@ pipeline {
                     --from-literal=user-passing='$HTML_PASS_PSW' -n springboot"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                     create secret generic sql-pass \
-                    --from-literal=sql-passing='$SQL_PASS_TWO' -n springboot"    
+                    --from-literal=sql-passing='$SQL_PASSTWO_PSW' -n springboot"    
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                     apply -f deploy.yml -f deploySQL.yml -f db-per.yml"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot"
