@@ -38,7 +38,8 @@ pipeline {
         }
         stage('kubectl deploy') {
             steps{
-                sh "kubectl delete all --all -n springboot" 
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                    delete all --all -n springboot" 
                 //sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                 //    delete secret user-pass -n springboot"
                 //sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
