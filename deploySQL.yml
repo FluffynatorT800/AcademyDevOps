@@ -31,11 +31,11 @@ spec:
                 name: mysql
             volumeMounts:
               - name: db
-                mountPath: /var/lib/mysql
+                mountPath: /var/lib/mysql2
         volumes: 
           - name: db
             persistentVolumeClaim:
-              claimName: db-per-claim
+              claimName: db-per-claim2
 ---
 apiVersion: v1
 kind: Service

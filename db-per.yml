@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: db-per-volume
+  name: db-per-volume2
   namespace: springboot
   labels:
     type: local
@@ -12,12 +12,12 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data"
+    path: "/mnt/data2"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: db-per-claim
+  name: db-per-claim2
   namespace: springboot
 spec:
   storageClassName: manual
