@@ -20,8 +20,11 @@ spec:
             env:
               - name: MYSQL_DATABASE
                 value: "customerapi"
-              - name: MYSQL_ROOT_PASSWORD
-                value: ${SQL_PASSTWO_PSW}
+              - name: SPRING_DATASOURCE_PASSWORD
+                valueFrom:
+                  secretKeyRef: 
+                    name: sql-pass
+                    key: sql-passing
             ports:
               - containerPort: 3306
                 name: mysql

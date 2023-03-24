@@ -9,23 +9,22 @@ pipeline {
     stages{
         stage('cleanup_CloneRepo') {
             steps {
-                sh "echo \
-                    'test234'"
-                sh 'ls'
-                sh 'chmod 755 Dockerfiles'
-                sh 'rm -rf AcademyDevops'
-                sh 'git clone https://github.com/FluffynatorT800/AcademyDevops.git'
+                sh "ls"
+                sh "chmod 755 Dockerfiles"
+                sh "rm -rf AcademyDevops"
+                sh "git clone https://github.com/FluffynatorT800/AcademyDevops.git"
             }
         }
         stage('maven build' ) {   
             steps {
-                sh 'cd customerapi && mvn clean install'
+                sh "cd customerapi && mvn clean install"
             }
         }    
         stage('build image') {
             steps {
-                sh 'ls'
-                sh 'cp /var/lib/jenkins/.m2/repository/de/telekom/customerapi/0.0.1-SNAPSHOT/customerapi-0.0.1-SNAPSHOT.jar Dockerfiles/customerapi.jar'
+                sh "ls"
+                sh "cp /var/lib/jenkins/.m2/repository/de/telekom/customerapi/0.0.1-SNAPSHOT/customerapi-0.0.1-SNAPSHOT.jar \
+                    Dockerfiles/customerapi.jar"
                 sh "cd Dockerfiles && docker build . -t ma5k/devops-demo:$BUILD_NUMBER -f java-dockerfile "
             } 
         }            
@@ -39,18 +38,26 @@ pipeline {
         }
         stage('kubectl deploy') {
             steps{ 
-                sh "kubectl --kubeconfig=/home/ma5k/.kube/config delete secret user-pass -n springboot"
-                sh "kubectl --kubeconfig=/home/ma5k/.kube/config create secret generic user-pass --from-literal=user-passing='$HTML_PASS_PSW' -n springboot"
-                sh 'kubectl --kubeconfig=/home/ma5k/.kube/config apply -f deploy.yml -f deploySQL.yml -f db-per.yml'
-                sh 'kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot'
-                sh 'kubectl config view'
-                sh 'echo y | docker system prune -a'
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                    delete secret user-pass -n springboot"
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                    delete secret sql-pass -n springboot"
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                    create secret generic user-pass \
+                    --from-literal=user-passing='$HTML_PASS_PSW' -n springboot"
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                    create secret generic sql-pass \
+                    --from-literal=sql-passing='$SQL_PASS_TWO' -n springboot"    
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                    apply -f deploy.yml -f deploySQL.yml -f db-per.yml"
+                sh "kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot"
+                sh "echo y | docker system prune -a"
             }
         }
     }
     post {
         cleanup {
-            sh 'docker logout'
+            sh "docker logout"
         }
     }
 }
