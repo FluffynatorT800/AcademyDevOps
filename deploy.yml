@@ -25,6 +25,7 @@ spec:
             env:
               - name: SPRING_DATASOURCE_PASSWORD
                 value: ${SQL_PASSTWO_PSW}
+              - name: SPRING_SECURITY_USER_PASSWORD
                 valueFrom:
                   secretKeyRef:
                     name: user-pass
