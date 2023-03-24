@@ -61,7 +61,7 @@ A build in interface has been created to make external SQL clients unnecessary.<
 A index.html file has been created in the folder resources/static. </br>
 In the next step the indexSripts.js file was created in the same folder. </br>
 This JS file contains the basic REST API to allow communication with the client machine.</br>
-The site gets every entry in the database, can add entries and delete them via simple html forms.
+The site gets every entry in the database, can add entries and deletes them via simple html forms.
 _________________
 SECURITY: </br>
 All passwords have been removed from the repository.</br>
@@ -87,6 +87,8 @@ _________________
 _________________
 KUBERNETES/MINIKUBE DEPOLOYMENT:
 
+IMPORTANT: When using Azure, and if possible, it is wise to use the Azure Kubernetes Service AKS instead of minikube </br>
+
 For test purposes a minikube version was installed on the azure VM. </br>
 -> </br>
  <-> sudo apt install -y curl wget apt-transport-https </br>
@@ -104,7 +106,7 @@ A namespace, in this case "springboot" was created via the kubectl tool. </br>
 <-> kubectl create namespace springboot </br>
 -> </br>
 
-kubernetes and Kubectl plugin was added in Jenkins, unclear if they are needed </br>
+kubernetes plugin added in Jenkins</br>
 
 Exposing minikube on a Azure Virtual Machine: </br>
 To test Minikube and make it accessable via browser run the following commands to </br>
@@ -129,28 +131,49 @@ By running the following curl command: </br>
 <-> curl http://123.456.78.9:1234 </br>
 -> </br>
 The content of an nginx default website should be deployed in the terminal, starting with "!DOCTYPE html" in the first line </br> 
-To allow access to the website via external Browser a port is necessary </br>
+To allow access to the website via external Browser a port-forward is necessary </br>
 -> </br>
 <-> kubectl port-forward --address 0.0.0.0 service/my-nginx-svc 8080:80 </br>
 -> </br>
-The command up to service/ is default after the service/ the name of the srvice nedds to be entered </br>
+The command up to service/ is default after the service/ the name of the service nedds to be entered </br>
 The first port 8080 is a port that has been made available via Network security settings on the Azure VM, </br>
 the second port 80 is the service port, 80 as it is the default nginx port. </br>
-It can be neccessary to delete the deployment and service to avoid port conflicts </br>
+It can be neccessary to delete the kubernetes deployment and service to avoid port conflicts </br>
 
 Due to connection issues it was necessary to change the kubeconfig file, </br>
 which jenkins uses in the pipline. </br>
 In this case it was neccessary to use the kubeconfig file assigned to the user on the VM. </br>
 An absoulte awful solution, will not recommend it. </br>
+To make it work the "jenkins" user was given access to certain files on the vm by modifing the read rights </br>
+The files in question can be found in the kubeconfig file of the vm user </br>
+-> </br>
+<-> kubectl config view </br>
+-> </br>
 
-Changed Jenkinsfile to tag the java image with the build number </br>
 Added DockerHub credentials to Jenkins and passed them in the jenkinsfile as env variable </br>
 Added extra stages and steps in Jenkinsfiles to login to docker hub and push the image into a specified repository. </br>
 
-Three yaml files were added on top level: </br>
-deploy.yml: containes the java app deployment and service </br>
+Three yaml files were added on the root level: </br>
+deploy.yml: contains the java app deployment and service </br>
 deploySQL.yml: contains the my SQL app and service </br>
 db-per.yml: database-persistence; declares that a persitent Volume is needed for the database </br>
+
+The docker compose up step is replaced with a kubectl deploy step </br>
+The docker compose file is therefor no longer in use </br>
+
+The path to the database url in the application.properties need to be modified to direct towards the mysql-servie </br>
+I.e. spring.datasource.url=jdbc:mysql://mysql-service:3306/customerapi
+
+To make use of jenkins env variables they must be createt as kubernetes secrets in the jenkinsfile. </br>
+Then the deployment files can use them as a reference </br>
+Secrects can not be created if they already exist so they need to be deletet first. </br>
+Also it is bit tricky to change passwords passed to deployment.yml later on, </br>
+as the persistent volume claim makes the sql password very persistent and changing the env variables has no effect </br>
+Even changing the password in the docker container after entering it via 'docker exec XXX' command does not</br>
+effect the password needed to access the entrypoint to the mysql container which the other containers have to use</br>
+
+After the jenkins pipeline has run succesfully the pods will be created in the designatet namespace.</br>
+To access them via browser a port forward must set up. See line 136 </br>
 
 
 _________________
