@@ -9,6 +9,8 @@ pipeline {
     stages{
         stage('cleanup_CloneRepo') {
             steps {
+                sh "echo \
+                    'test234'"
                 sh 'ls'
                 sh 'chmod 755 Dockerfiles'
                 sh 'rm -rf AcademyDevops'
@@ -35,16 +37,20 @@ pipeline {
            }
 
         }
-        stage('docker compose up') {
+        stage('kubectl deploy') {
             steps{ 
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config delete secret user-pass -n springboot"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config create secret generic user-pass --from-literal=user-passing='$HTML_PASS_PSW' -n springboot"
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config apply -f deploy.yml -f deploySQL.yml -f db-per.yml'
                 sh 'kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot'
                 sh 'kubectl config view'
-                sh "docker logout"
                 sh 'echo y | docker system prune -a'
             }
+        }
+    }
+    post {
+        cleanup {
+            sh 'docker logout'
         }
     }
 }
