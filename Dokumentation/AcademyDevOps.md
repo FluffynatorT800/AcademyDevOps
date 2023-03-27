@@ -174,7 +174,8 @@ effect the password needed to access the entrypoint to the mysql container which
 
 After the jenkins pipeline has run succesfully the pods will be created in the designatet namespace.</br>
 To access them via browser a port forward must set up. See line 136 </br>
-
+Port-forward can not be run in the jenkinspipeline for now, </br>
+as it prevents the pipeline from finishing
 
 _________________
 _________________
