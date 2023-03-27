@@ -47,7 +47,7 @@ pipeline {
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                     apply -f db-per.yml -f deploy.yml -f deploySQL.yml"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
-                    port-forward --adress 0.0.0.0 service/java-service 8080:8080 -n springboot"
+                    port-forward --address 0.0.0.0 service/java-service 8080:8080 -n springboot"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot"            
             }
         }
