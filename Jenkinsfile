@@ -31,13 +31,11 @@ pipeline {
         stage('docker login & push') {
             steps{
                 sh "echo $DOCK_CRED_PSW | docker login -u $DOCK_CRED_USR --password-stdin"
-                //sh "docker tag ma5k/devops-demo:$BUILD_NUMBER ma5k/devops-demo:latest"
                 sh "docker push ma5k/devops-demo:$BUILD_NUMBER"
                 sh """
                     sed -i 's|latest|$BUILD_NUMBER|' deploy.yml
                    """
-           }
-
+           }   
         }
         stage('kubectl secrets creation') {
             steps {
@@ -49,7 +47,7 @@ pipeline {
                         create secret generic sql-pass \
                         --from-literal=sql-passing='$SQL_PASSTWO_PSW' -n springboot"
                 }
-            }
+            }   
         }
         stage('kubectl deploy') {
             steps{

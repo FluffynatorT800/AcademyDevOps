@@ -73,9 +73,13 @@ The files in question can be found in the kubeconfig file of the vm user </br>
 <-> kubectl config view </br>
 -> </br>
 
+__________
+ADDING DOCKER HUB ACCESS: </br>
 In the next step DockerHub credentials were added to Jenkins and passed on in the jenkinsfile as env variable </br>
 An extra stage and steps were added in the Jenkinsfiles to login to docker hub and push the image, build in the build step, into a specified repository. </br>
 
+__________
+ADDING THE KUBERNETES YAML FILES: </br>
 Three yaml files were added on the root level: </br>
 deploy.yml: contains the java app deployment and service </br>
 => Deployments describes how the image is supposed to be deployed in the container. </br>
@@ -83,12 +87,18 @@ deploy.yml: contains the java app deployment and service </br>
 deploySQL.yml: contains the my SQL app and service </br>
 db-per.yml: database-persistence; declares that a persitent volume is needed for the database </br>
 
+__________
+REMOVE DOCKER COMPOSE FROM JENKINSFILE: </br>
 The docker compose up step is replaced with a kubectl deploy step </br>
 The docker compose file is therefor no longer in use </br>
 
+___________
+MODIFING THE applicaton.properties FILE </br>
 The path to the database url in the application.properties file need to be modified to direct towards the mysql-servie </br>
 I.e. spring.datasource.url=jdbc:mysql://mysql-service:3306/customerapi </br>
 
+___________
+PASSING ENVIREONMENT VARIABLES TO MINIKUBE: </br>
 To make use of jenkins env variables they must be created as kubernetes secrets in the jenkinsfile. </br>
 Then the deployment files can use them as a reference </br>
 Secrects can not be created if they already exist so they need to be deletet first. </br>
@@ -97,8 +107,18 @@ as the persistent volume claim makes the sql password very persistent and changi
 Even changing the password in the docker container after entering it via 'docker exec XXX' command does not </br>
 effect the password needed to access the entrypoint to the mysql container which the other containers have to use</br>
 
+___________
+MODIFING THE deploy YAML FILE: </br>
+yml files can not take variables directly; in this case a 'sed' command is used in the docker login stage </br>
+to override the image tag in the deploy.yml file
+
+___________
+RUNNING THE PIPELINE: </br>
 After the jenkins pipeline has run succesfully the pods will be created in the designatet namespace.</br>
-To access them via browser a port forward must set up. See line 136 </br>
+To access them via browser a port forward must set up.</br>
+-> </br>
+<-> kubectl port-forward --address 0.0.0.0 service/java-service 8080:8080 -n springboot</br>
+-></br>
 Port-forward can not be run in the jenkinspipeline, </br>
 as it prevents the pipeline from finishing </br>
 
