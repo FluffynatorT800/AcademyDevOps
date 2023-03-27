@@ -18,7 +18,7 @@ spec:
     spec:
         containers:
           - name: java
-            image: ma5k/devops-demo
+            image: ma5k/devops-demo:latest
             imagePullPolicy: Always
             ports: 
              - containerPort: 8080
