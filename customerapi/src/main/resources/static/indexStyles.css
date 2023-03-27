@@ -10,13 +10,16 @@ h1 {
 }
 .column {
     float: left;
-
-    padding-left: 5%;
+    max-width: 30%;
+    padding-left: 2%;
+    padding-right: 2%;
     padding-bottom: 2%;
-    margin-left: 10%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
     outline: solid;
     min-height: 500px;
-    min-width: 200px;
+    min-width: 300px;
     background-color:magenta;
 }
 .row:after {
