@@ -100,4 +100,10 @@ effect the password needed to access the entrypoint to the mysql container which
 After the jenkins pipeline has run succesfully the pods will be created in the designatet namespace.</br>
 To access them via browser a port forward must set up. See line 136 </br>
 Port-forward can not be run in the jenkinspipeline, </br>
-as it prevents the pipeline from finishing
+as it prevents the pipeline from finishing </br>
+
+Minikube is a testing tool, and therefore not easy to be fully automated </br>
+Minikube needs to be started manually in the VM-CLI: </br>
+-> </br>
+<-> minikube start </br>
+-></br>

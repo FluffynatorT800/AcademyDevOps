@@ -39,15 +39,20 @@ pipeline {
            }
 
         }
+        stage('kubectl secrets creation') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult:'FAILURE' ) {
+                    sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                        create secret generic user-pass \
+                        --from-literal=user-passing='$HTML_PASS_PSW' -n springboot"
+                    sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
+                        create secret generic sql-pass \
+                        --from-literal=sql-passing='$SQL_PASSTWO_PSW' -n springboot"
+                }
+            }
+        }
         stage('kubectl deploy') {
             steps{
-                //sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
-                //    create secret generic user-pass \
-                //    --from-literal=user-passing='$HTML_PASS_PSW' -n springboot"
-               // sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
-               //     create secret generic sql-pass \
-              //      --from-literal=sql-passing='$SQL_PASSTWO_PSW' -n springboot"   
-                sh "minikube --kubeconfig=/home/ma5k/.kube/config start" 
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                     apply -f db-per.yml -f deploy.yml -f deploySQL.yml"
                 sh "kubectl --kubeconfig=/home/ma5k/.kube/config get all -n springboot"            
