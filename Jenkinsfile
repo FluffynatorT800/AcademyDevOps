@@ -34,7 +34,7 @@ pipeline {
                 //sh "docker tag ma5k/devops-demo:$BUILD_NUMBER ma5k/devops-demo:latest"
                 sh "docker push ma5k/devops-demo:$BUILD_NUMBER"
                 sh """
-                    sed -i 's|latest|"$BUILD_NUMBER"|' deploy.yml
+                    sed -i 's|latest|$BUILD_NUMBER|' deploy.yml
                    """
            }
 
