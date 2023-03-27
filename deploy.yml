@@ -37,7 +37,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: java-servcie
+  name: java-service
   namespace: springboot
 spec: 
   selector:
