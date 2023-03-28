@@ -50,9 +50,8 @@ public class CustomerController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Customer customer, @PathVariable int id) {
         try {
-            Customer existsCustomer = customerService.getCustomer(id);
-            customer.setId(id);
-            customerService.saveCustomer(existsCustomer);
+            Customer existCustomer = customerService.getCustomer(id);
+            customerService.saveCustomer(customer);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
