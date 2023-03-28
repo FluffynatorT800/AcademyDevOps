@@ -46,6 +46,11 @@ async function deleteIt() {
         headers: {
           'X-XSRF-TOKEN': csrfToken
         }
+    }).then(function(response){
+      if (response.status != 200) {
+        document.getElementById("deleteError").style.visibility = "visible";
+          setTimeout(function(){document.getElementById("deleteError").style.visibility = "hidden"}, 10000)
+      }
     });  
     const loadList = myFunction();
 }
@@ -71,8 +76,8 @@ putAdd.addEventListener('submit', event => {
             myFunction()
         } 
         else {
-          document.getElementById("addError").style.visibility = "visible";
-          setTimeout(function(){document.getElementById("addError").style.visibility = "hidden"}, 10000)
+          document.getElementById("deleteError").style.visibility = "visible";
+          setTimeout(function(){document.getElementById("deleteError").style.visibility = "hidden"}, 10000)
         };
     })
 })
