@@ -50,7 +50,7 @@ const patchAdd = document.querySelector('.form2');
 
 patchAdd.addEventListener('submit', event => {
     event.preventDefault();
-    const patchId = documnet.getElementById("patchId").value
+    const patchId = document.getElementById("patchId").value
     const formData = new FormData(patchAdd);
     const data = Object.fromEntries(formData);
     const patchCommand = fetch("http://40.115.21.0:8080/customer/" + patchId, {
