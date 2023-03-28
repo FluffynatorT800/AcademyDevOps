@@ -48,11 +48,13 @@ public class CustomerController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Customer customer, @PathVariable int id) {
+    public ResponseEntity<Customer> update(@RequestBody Customer customerDetails, @PathVariable int id) {
         try {
-            Customer existCustomer = customerService.getCustomer(id);
-            customerService.saveCustomer(existCustomer);
-            return new ResponseEntity<>(HttpStatus.OK);
+            Customer customer = customerService.getCustomer(id);
+            customer.setVorname(customerDetails.getVorname());
+            customer.setNachname(customerDetails.getNachname());
+            Customer update = customerService.saveCustomer(customer);
+            return  ResponseEntity.ok(update);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
