@@ -76,8 +76,8 @@ putAdd.addEventListener('submit', event => {
             myFunction()
         } 
         else {
-          document.getElementById("deleteError").style.visibility = "visible";
-          setTimeout(function(){document.getElementById("deleteError").style.visibility = "hidden"}, 10000)
+          document.getElementById("updateError").style.visibility = "visible";
+          setTimeout(function(){document.getElementById("updateError").style.visibility = "hidden"}, 10000)
         };
     })
 })
