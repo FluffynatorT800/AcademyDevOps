@@ -18,13 +18,6 @@ import java.util.NoSuchElementException;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    //public String handler() {
-    //    Authentication auth = SecurityContextHolder.getContext()
-    //                                               .getAuthentication();
-    //    System.out.println("user: "+ auth.getName());
-    //    System.out.println("roles: "+ auth.getAuthorities());
-    //    return "hello!";
-    //}
     @Autowired
     CustomerService customerService;
 
