@@ -46,15 +46,15 @@ async function deleteIt() {
     const loadList = myFunction();
 }
 
-const patchAdd = document.querySelector('.form2');
+const putAdd = document.querySelector('.form2');
 
-patchAdd.addEventListener('submit', event => {
+putAdd.addEventListener('submit', event => {
     event.preventDefault();
-    const patchId = document.getElementById("patchId").value
-    const formData = new FormData(patchAdd);
+    const putId = document.getElementById("putId").value
+    const formData = new FormData(putAdd);
     const data = Object.fromEntries(formData);
-    const patchCommand = fetch("http://40.115.21.0:8080/customer/" + patchId, {
-      method: 'PATCH',
+    const putCommand = fetch("http://40.115.21.0:8080/customer/" + putId, {
+      method: 'PUT',
       headers: {
         'Accept' : 'application/json',
         'Content-Type': 'application/json',
