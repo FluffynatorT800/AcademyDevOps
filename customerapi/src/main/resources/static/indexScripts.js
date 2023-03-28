@@ -45,3 +45,26 @@ async function deleteIt() {
     });  
     const loadList = myFunction();
 }
+
+const patchAdd = document.querySelector('.form2');
+
+patchAdd.addEventListener('submit', event => {
+    event.preventDefault();
+    const patchId = documnet.getElementById("patchId").value
+    const formData = new FormData(patchAdd);
+    const data = Object.fromEntries(formData);
+    const patchCommand = fetch("http://40.115.21.0:8080/customer/" + patchId, {
+      method: 'PATCH',
+      headers: {
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': csrfToken
+      },
+      body: JSON.stringify(data)  
+    })
+    .then(function(response){
+        if(response.status === 200){
+            myFunction()
+        };
+    })
+})
