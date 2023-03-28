@@ -22,6 +22,12 @@ Files on Root level: </br>
 The spring boot app: </br>
  The Spring boot app is placed in the folder customerapi/src/main/java/de/telekom/customerapi </br>
  There are all the java files located that describe the function of the spring boot app </br>
+-> Customer.java => The data model  </br>
+-> CustomerapiApplication.java => The actual application </br>
+-> CustomerController.java => Contains the CRUD mechanics (crate retrive update delete) </br>
+-> CustomerRepository.java => Repository interface to interface with the database </br>
+-> CustomerService.java => Serves the customer controller as a connection to the repository interface </br>
+-> SpringSecurityConfiguration.java => Configures the spring boot security module </br>
 
 Resources: </br>
 Under customerapi/src/main/resources lies the application.properties file. </br>
