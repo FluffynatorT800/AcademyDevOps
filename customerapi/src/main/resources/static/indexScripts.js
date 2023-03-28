@@ -30,6 +30,10 @@ formADD.addEventListener('submit', event => {
     .then(function(response){
         if(response.status === 200){
             myFunction()
+        }
+        else {
+          document.getElementById("addError").style.visibility = "visible";
+          setTimeout(function(){document.getElementById("addError").style.visibility = "hidden"}, 10000)
         };
     })
 })
@@ -65,6 +69,10 @@ putAdd.addEventListener('submit', event => {
     .then(function(response){
         if(response.status === 200){
             myFunction()
+        } 
+        else {
+          document.getElementById("addError").style.visibility = "visible";
+          setTimeout(function(){document.getElementById("addError").style.visibility = "hidden"}, 10000)
         };
     })
 })
