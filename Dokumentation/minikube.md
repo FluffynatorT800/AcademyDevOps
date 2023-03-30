@@ -7,51 +7,51 @@ __________________
 MINIKUBE TESTRUN & Set-up:
 
 For test purposes a minikube version was installed on the azure VM. </br>
--> </br>
- <-> sudo apt install -y curl wget apt-transport-https </br>
- <-> curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 </br>
- <-> sudo install minikube-linux-amd64 /usr/local/bin/minikube </br>
--> </br>
+```
+ sudo apt install -y curl wget apt-transport-https 
+ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 
+ sudo install minikube-linux-amd64 /usr/local/bin/minikube 
+```
 Kubectl command line tool </br>
--> </br>
- <-> curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" </br>
- <-> sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl </br>
- <-> kubectl version --client </br>
--> </br>
+```
+  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" 
+  sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl 
+  kubectl version --client 
+```
 A namespace, in this case "springboot" was created via the kubectl tool. </br>
--> </br>
-<-> kubectl create namespace springboot </br>
--> </br>
+```
+ kubectl create namespace springboot 
+```
 
 kubernetes plugin added in Jenkins</br>
 
 Exposing minikube on a Azure Virtual Machine: </br>
 To test Minikube and make it accessable via browser run the following commands to </br>
 create a test deployment on the VM </br>
--> </br>
-<-> kubectl create deployment my-nginx --image=nginx </br>
--> </br>
+```
+ kubectl create deployment my-nginx --image=nginx 
+```
 To create a simpe nginx deployment. </br>
--> </br>
-<-> kubectl expose deployment my-nginx --name=my-nginx-svc --type=NodePort --port=80 </br>
--> </br>
+```
+ kubectl expose deployment my-nginx --name=my-nginx-svc --type=NodePort --port=80 
+```
 This should expose the deployment, port 80 is the default port for nginx </br>
 To test if the exposing worked run the following commands: </br>
--> </br>
-<-> kubectl get service my-nginx-svc </br>
-<-> minikube ip
--> </br>
+```
+ kubectl get service my-nginx-svc
+ minikube ip
+```
 The first command should retrive information on the ports, something like 80:1234</br>
 The second will give the minikube internal ip adress, something like 123.456.78.9 </br>
 By running the following curl command: </br>
--> </br>
-<-> curl http://123.456.78.9:1234 </br>
--> </br>
+```
+ curl http://123.456.78.9:1234
+```
 The content of an nginx default website should be deployed in the terminal, starting with "!DOCTYPE html" in the first line </br> 
 To allow access to the website via external Browser a port-forward is necessary </br>
--> </br>
-<-> kubectl port-forward --address 0.0.0.0 service/my-nginx-svc 8080:80 </br>
--> </br>
+```
+ kubectl port-forward --address 0.0.0.0 service/my-nginx-svc 8080:80
+```
 The command up to service/ is default after the service/ the name of the service nedds to be entered </br>
 The first port 8080 is a port that has been made available via Network security settings on the Azure VM, </br>
 the second port 80 is the service port, 80 as it is the default nginx port. </br>
@@ -69,9 +69,9 @@ This is achived by adding the kubeconfig commands in the jenkinspipeline. </br>
 An absoulte awful solution, will not recommend it. </br>
 To make it work the "jenkins" user was given access to certain files on the vm by modifing the read rights </br>
 The files in question can be found in the kubeconfig file of the vm user </br>
--> </br>
-<-> kubectl config view </br>
--> </br>
+```
+ kubectl config view
+```
 
 __________
 ADDING DOCKER HUB ACCESS: </br>
@@ -116,14 +116,48 @@ ___________
 RUNNING THE PIPELINE: </br>
 After the jenkins pipeline has run succesfully the pods will be created in the designatet namespace.</br>
 To access them via browser a port forward must set up.</br>
--> </br>
-<-> kubectl port-forward --address 0.0.0.0 service/java-service 8080:8080 -n springboot</br>
--></br>
+```
+ kubectl port-forward --address 0.0.0.0 service/java-service 8080:8080 -n springboot
+```
 Port-forward can not be run in the jenkinspipeline, </br>
 as it prevents the pipeline from finishing </br>
 
 Minikube is a testing tool, and therefore not easy to be fully automated </br>
 Minikube needs to be started manually in the VM-CLI: </br>
--> </br>
-<-> minikube start </br>
--></br>
+```
+ minikube start
+```
+
+______________________
+______________________
+______________________
+
+MINIKUBE AUTOSTART:
+
+To launch minikube automatically when the VM is started, a file can be added to </br>
+ect/systemd/system/ on the VM. </br>
+Using a build in text editor like vi, a command like 
+```
+sudo vi newFileName
+```
+will work. </br>
+
+Entering the following lines into the file:
+```
+ [Unit]
+ Description=Kickoff Minikube Cluster
+ After=docker.service
+
+ [Service]
+ Type=oneshot
+ ExecStart=/usr/local/bin/minikube start
+ RemainAfterExit=true
+ ExecStop=/usr/local/bin/minikube stop
+ StandardOutput=journal
+ User= yourUserName
+ Group= yourUserGroup
+
+ [Install]
+ wantedBy=multi-user.target
+ ```
+ Will crate a script to launch minikube whenever the VM starts </br>

@@ -1,26 +1,27 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: db-per-volume2
+  name: db-per-volume
   namespace: springboot
   labels:
     type: local
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   capacity:
     storage : 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/lib/docker"
+    path: "/mnt/data/the-database"
+    type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: db-per-claim2
+  name: db-per-claim
   namespace: springboot
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   resources:

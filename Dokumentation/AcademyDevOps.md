@@ -21,16 +21,19 @@ In this specific case it was necessary to modifie the Network Security Rules via
 to get access to the HTTP Ports like :8080 to get access to jenkins. </br>
 Modifiying the Jenkins Port to get it to switch to 8081 to clear the port for the app </br>
 can only be achived by stopping the Jenkins service </br> 
--> </br>
-<-> sudo service jenkins stop  </br>
--> </br>
+```
+  sudo service jenkins stop  
+```
 creating a system overide file - sudo systemctl edit jenkins - </br>
  and entering the new port 8081 as an environment variable.</br>
--> </br>
-<->  [Service] </br>
-<-> Environment="JENKINS_PORT=8081" </br>
--> </br>
-After saving the file jenkins service needs to be restarted  - sudo service jenkins start - 
+```
+  [Service] 
+  Environment="JENKINS_PORT=8081" 
+```
+After saving the file jenkins service needs to be restarted  
+```
+ sudo service jenkins start
+```
 ______________
 LOCAL INSTALLATION: </br>
 The isntructions on how to run the spring boot app locally </br>
