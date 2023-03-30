@@ -31,7 +31,7 @@ spec:
                 name: mysql
             volumeMounts:
               - name: db
-                mountPath: /mnt/data/customerapi
+                mountPath: /var/lib/mysql
         volumes: 
           - name: db
             persistentVolumeClaim:
