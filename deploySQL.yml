@@ -18,6 +18,8 @@ spec:
         containers:
           - image: mysql:8.0.31
             name: mysql
+            args:
+              - "--ignore-db-dir=lost+found"
             env:
               - name: MYSQL_DATABASE
                 value: "customerapi"
