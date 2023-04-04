@@ -41,7 +41,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult:'FAILURE' ) {
                     sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
-                        delete secret user-pass"
+                        delete secret user-pass -n springboot"
                     sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                         delete secret sql-pass"
                 }
