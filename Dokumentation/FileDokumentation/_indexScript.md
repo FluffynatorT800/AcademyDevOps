@@ -48,7 +48,7 @@ formADD.addEventListener('submit', event => {
 })
 ```
 deleteIt: </br>
-This function takes user input to delete single database entry identified by the id number </br>
+This function takes user input to delete a single database entry identified by the id number </br>
 It also transmits the csrf token in the header and triggers the myFunciton on success.
 ```
 async function deleteIt() {
