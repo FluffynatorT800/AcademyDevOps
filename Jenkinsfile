@@ -41,7 +41,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult:'FAILURE' ) {
                     sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
-                        create secret user-pass"
+                        delete secret user-pass"
                     sh "kubectl --kubeconfig=/home/ma5k/.kube/config \
                         delete secret sql-pass"
                 }
